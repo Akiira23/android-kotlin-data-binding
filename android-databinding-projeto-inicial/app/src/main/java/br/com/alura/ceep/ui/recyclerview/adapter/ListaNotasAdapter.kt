@@ -61,7 +61,7 @@ class ListaNotasAdapter(
 
         fun vincula(nota: Nota) {
             this.nota = nota
-            viewDataBinding.setVariable(BR.nota, nota)
+            viewDataBinding.setVariable(BR.nota, nota)        //id que foi usado na configuracao de variavel no xml "name"
             campoDescricao.text = nota.descricao
             if (this.nota.favorita) {
                 campoFavorita.visibility = VISIBLE
