@@ -7,11 +7,13 @@ import android.view.View.VISIBLE
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.alura.ceep.R
+import br.com.alura.ceep.databinding.FormularioNotaBinding
 import br.com.alura.ceep.model.Nota
 import br.com.alura.ceep.repository.Falha
 import br.com.alura.ceep.repository.Sucesso
@@ -54,6 +56,7 @@ class FormularioNotaFragment : Fragment() {
     private val fabAdicionaImagem: FloatingActionButton by lazy {
         formulario_nota_fab_adiciona_imagem
     }
+    private lateinit var viewDataBinding: FormularioNotaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,11 +68,9 @@ class FormularioNotaFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(
-            R.layout.formulario_nota,
-            container,
-            false
-        )
+
+        viewDataBinding = FormularioNotaBinding.inflate(inflater, container, false)
+        return viewDataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,8 +85,8 @@ class FormularioNotaFragment : Fragment() {
         if (temIdValido()) {
             viewModel.buscaPorId(notaId).observe(this, Observer {
                 it?.let { notaEncontrada ->
+                    this.viewDataBinding.nota = notaEncontrada
                     inicializaNota(notaEncontrada)
-                    inicializaCampos()
                     appViewModel.temComponentes = appBarParaEdicao()
                 }
             })
@@ -129,15 +130,6 @@ class FormularioNotaFragment : Fragment() {
     private fun inicializaNota(notaEncontrada: Nota) {
         this.notaEncontrada = notaEncontrada
         urlAtual = this.notaEncontrada.imagemUrl
-    }
-
-    private fun inicializaCampos() {
-        if (::notaEncontrada.isInitialized) {
-            campoTitulo.setText(notaEncontrada.titulo)
-            campoDescricao.setText(notaEncontrada.descricao)
-            campoFavorita.isChecked = notaEncontrada.favorita
-            configuraImagem()
-        }
     }
 
     private fun configuraImagem() {

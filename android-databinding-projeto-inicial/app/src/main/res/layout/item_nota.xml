@@ -5,6 +5,10 @@
     <data>
         <import type="android.view.View"/>
         <variable
+            name="clicaNaNota"
+            type="android.view.View.OnClickListener" />
+
+        <variable
             name="nota"
             type="br.com.alura.ceep.model.Nota" />
     </data>
@@ -12,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:onClick="@{clicaNaNota}"
         app:cardCornerRadius="8dp"
         app:cardElevation="1dp">
 
