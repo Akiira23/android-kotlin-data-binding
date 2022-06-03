@@ -4,7 +4,7 @@
         <import type="android.view.View"/>
         <variable
             name="nota"
-            type="br.com.alura.ceep.model.Nota" />
+            type="br.com.alura.ceep.ui.databinding.NotaData" />
         <variable
             name="solicitaImagem"
             type="android.view.View.OnClickListener" />
@@ -77,6 +77,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/formulario_nota_titulo"
             tools:text="@tools:sample/lorem" />
+        <!-- quando utiliza "=" para pegar o valor do campo ele eh uma two way(get e set) -->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/formulario_nota_fab_adiciona_imagem"
